@@ -7,24 +7,24 @@ $(document).ready(function () {
   for (var i = 9; i <= 18; i++) {
     // Create rows and columns
     row = $(`<div class="row">`);
-    columnOne = $(`<div class ="col-lg-3 hour">${mornAft(i)}</div>`);
+    columnOne = $(`<div class ="col-lg-2 hour">${mornAft(i)}</div>`);
     columnTwo = $(
-      `<div class ="col-lg-7 inputContent"><input data-input="${i}" id="calInput${i}" class="calInput" type="text" name="inputText"></div>`
+      `<div class ="col-lg-8 inputContent"><input data-input="${i}" id="calInput${i}" class="form-control calInput" type="text" name="inputText"></div>`
     );
     columnThree = $(
-      `<div class ="col-lg-2"><button data-id="${i}" id="saveEntry" class="btn btn-outline-primary"><i class="fas fa-save"></i> Save</button></div>`
+      `<div class ="col-lg-2"><button data-id="${i}" id="saveEntry" class="btn btn-outline-primary mx-auto d-block"><i class="fas fa-save"></i> Save</button></div>`
     );
     row.append(columnOne);
     row.append(columnTwo);
     row.append(columnThree);
-    $("#planner").append(row);
+    $("#timeSlots").append(row);
     getlocalStorage(i);
   }
-  $("button.btn.btn-primary").click(function (e) {
-    var id = $(this).data("id");
-    var calInput = $(this).parent().siblings().find("input").val();
-    localStorage.setItem(id, calInput);
-  });
+  $("button.btn.btn-primary").click(function () {
+    var id = $(this).data("id")
+    var calInput = $(this).parent().siblings().find("input").val()
+    localStorage.setItem(id, calInput)
+  })
 
   // Function for morning or afternoon
   function mornAft(hour) {
@@ -39,3 +39,28 @@ $(document).ready(function () {
     return hour + " " + y;
   }
 });
+
+/////////////////////////////////////
+
+function getlocalStorage(hour) {
+  let inputVal = localStorage.getItem(hour)
+  if (true) {
+    var text = $(`input#calInput${hour}`).val(inputVal)
+    console.log(text)
+  }
+}
+//Change colours
+function changeColour() {
+  var hour = new Date().getHours();
+  for (var i = 9; i <= 18; i++) {
+    console.log(hour, i);
+    if (hour == i) {
+      $(`#calInput${i}`).css("background", "orange");
+    } else if (hour < i) {
+      $(`#calInput${i}`).css("background", "lightblue");
+    }
+  }
+}
+setInterval(function () {
+  changeColour();
+}, 1000);
