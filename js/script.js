@@ -3,7 +3,7 @@ $(document).ready(function () {
   $("#currentDay").text(todaysDate);
 
   var row = "";
-  //loop to display 9am-6pm
+  //for loop to display 9am-6pm
   for (var i = 9; i <= 18; i++) {
     // Create rows and columns
     row = $(`<div class="row">`);
@@ -20,7 +20,8 @@ $(document).ready(function () {
     $("#timeSlots").append(row);
     getlocalStorage(i);
   }
-  $("button.btn.btn-primary").click(function () {
+  // Set local storage
+  $("button.btn").click(function () {
     var id = $(this).data("id")
     var calInput = $(this).parent().siblings().find("input").val()
     localStorage.setItem(id, calInput)
@@ -42,6 +43,7 @@ $(document).ready(function () {
 
 /////////////////////////////////////
 
+// Retrieve from local storage
 function getlocalStorage(hour) {
   let inputVal = localStorage.getItem(hour)
   if (true) {
